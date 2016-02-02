@@ -3,43 +3,95 @@ $(document).ready(function(){
 
 	$('#enter').on('click', function(){
 		$('#enter').addClass('hide');
+		$('#deal').removeClass('hide');
 		$('#outsideLuxor').addClass('hide');
 		$('#insideLuxor').removeClass('hide');
 		$('#board').removeClass('hide');
 	});
 
-	function deal(){
+	
 
-	var cards = ["ace-of-clubs","two-of-clubs","three-of-clubs",
-		"four-of-clubs","five-of-clubs","six-of-clubs","seven-of-clubs",
-		"eight-of-clubs","nine-of-clubs","ten-of-clubs","jack-of-clubs",
-		"queen-of-clubs","king-of-clubs","ace-of-spades","two-of-spades",
-		"three-of-spades","four-of-spades","five-of-spades","six-of-spades",
-		"seven-of-spades","eight-of-spades","nine-of-spades","ten-of-spades",
-		"jack-of-spades","queen-of-spades","king-of-spades","ace-of-hearts",
-		"two-of-hearts","three-of-hearts","four-of-hearts","five-of-hearts",
-		"six-of-hearts","seven-of-hearts","eight-of-hearts","nine-of-hearts",
-		"ten-of-hearts","jack-of-hearts","queen-of-hearts","king-of-hearts",
-		"ace-of-diamonds","two-of-diamonds","three-of-diamonds","four-of-diamonds",
-		"five-of-diamonds","six-of-diamonds","seven-of-diamonds","eight-of-diamonds",
-		"nine-of-diamonds","ten-of-diamonds","jack-of-diamonds","queen-of-diamonds",
-		"king-of-diamonds"];
+	// initialize card object
+	function card(value, name, suit) {
+	    this.value = value;
+	    this.name = name;
+	    this.suit = suit;
+	};
+	// function to create decks of card objects
+	function getDeck() {
+	    this.names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 
+	'Q', 'K', 'A'];
+	    this.suits = ['&clubs;', '&diams;', '&hearts;', '&spades;'];
+	    var cards = [];
+	    for(var i = 0; i < this.suits.length; i++) {
+	        for(var j = 0; j < this.names.length; j++) {
+	      var faceCards = j+2;
+	      if(faceCards > 10){
+	      	faceCards = 10;
+	      }
 
-    /// Store correlating values in an array
-    var values = [11,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10,11,
-    2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10];
+	            cards.push(new card(faceCards, this.names[j], this.suits[i]));
+	        }
+	    }
+	    return cards;
 
-    //random number
-    var num = Math.floor(Math.random())*cards.length;
+	};
+
+	var myDeck = getDeck();
+	
+
+	function getCard(){
+		var index = (Math.floor(Math.random()*myDeck.length));
+		var card = myDeck[index];
+		myDeck.splice(index, 1);
+		console.log(card);
+		return card;
+
+	};
+
+var newCard = getCard();
+
+$('#deal').on('click',function(){
+	$('#playerCard').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	newCard = getCard();
+	$('#playerCardTwo').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	newCard = getCard();
+	$('#computerCard').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
+	newCard = getCard();
+	$('#computerCardTwo').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
+});
+
+var counter = 2;
+$('#hit').on('click',function(e){
+	counter++;
+	newCard = getCard();
+	if (counter == 3){
+	$('#playerCardThree').removeClass('hide');
+	$('#playerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+} else if (counter == 4){
+	$('#playerCardFour').removeClass('hide');
+	$('#playerCardFour').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+}else if (counter == 5){
+	$('#playerCardFive').removeClass('hide');
+	$('#playerCardFive').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+}else if (counter == 6){
+	$('#playerCardSix').removeClass('hide');
+	$('#playerCardSix').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+}else if (counter == 7){
+	$('#playerCardSeven').removeClass('hide');
+	$('#playerCardSeven').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+}
+});
+
+function addCards(a,b,c,d,e,f,g){
+	
+}
+
 
     // get player cards
     // $('#playerCard').html('<div>' + cards[num] + '</div>');
 
 
-
-
-
-};
 
     // allow player to either hit or stand
     // get computer cards
