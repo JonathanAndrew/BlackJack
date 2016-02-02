@@ -14,9 +14,18 @@
 	<img id="insideLuxor" class="hide" src="images/luxor.jpeg">
 
 	</div>
-
+		
 	<div id="board" class="hide">
+		<h2 id="player">Player Wins</h2>
+
+		<div id="playerWins"></div>
+
+		<h2 id="computer">Computer Wins</h2>
+
+		<div id="computerWins"></div>
+
 		<h1 id="title">BlackJack</h1>
+
 			<ul>
 				<li>
 					<h2 class="player">Player</h2>
@@ -31,7 +40,7 @@
 				</li>
 				<div id="playerScore"></div>
 				<li>
-					<h2 class="computer">Computer</h2>
+					
 					<div id="computerCard"></div>
 					<div id="computerCardTwo"></div>
 					<div id="computerCardThree" class="hide"></div>
@@ -40,13 +49,26 @@
 					<div id="computerCardSix" class="hide"></div>
 					<div id="computerCardSeven" class="hide"></div>
 				</li>
+				<h2 class="computer">Computer</h2>
 				<div id="computerScore"></div>
 			</ul>
-			<button id="stand">Stand</button>
-			<button id="hit">Hit</button>
+			<div id="buttons">
+				<button id="deal">Deal</button>
+				<button id="stand" class="hide">Stand</button>
+				<button id="hit" class="hide">Hit</button>
+				<button id="reset" class="hide">Reset</button>
+			</div>
+
+			<div id="win" class="hide">
+			<h1>YOU WIN!</h1>
+			</div>
+
+			<div id="lose" class="hide">
+			<h1>YOU LOSE!</h1>
+			</div>
 	</div>
 
-	<button id="deal">Deal</button>
+	
 
 	<div id ="container">
 

@@ -3,11 +3,11 @@ $(document).ready(function(){
  var computerTotal=0;
 
 	$('#enter').on('click', function(){
-		$('#enter').addClass('hide');
-		$('#deal').removeClass('hide');
-		$('#outsideLuxor').addClass('hide');
-		$('#insideLuxor').removeClass('hide');
-		$('#board').removeClass('hide');
+		$('#enter').hide();
+		// $('#deal').show();
+		$('#outsideLuxor').hide();
+		$('#insideLuxor').show();
+		$('#board').show();
 	});
 
 	
@@ -53,6 +53,9 @@ $(document).ready(function(){
 var newCard = getCard();
 
 $('#deal').on('click',function(){
+	$('#deal').hide();
+	$('#hit').show();
+	$('#stand').show();
 	playerTotal=0;
 	computerTotal=0;
 	playerTotal+=newCard.value
@@ -82,49 +85,164 @@ $('#hit').on('click',function(e){
 	newCard = getCard();
 	console.log("playerTotal before hit: " + playerTotal);
 	if (counter == 3){
-	$('#playerCardThree').removeClass('hide');
+	// $('#playerCardThree').show();
+	$('#playerCardThree').show();
 	$('#playerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
 	playerTotal+=newCard.value
-} else if (counter == 4){
-	$('#playerCardFour').removeClass('hide');
-	$('#playerCardFour').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
-	playerTotal+=newCard.value
-}else if (counter == 5){
-	$('#playerCardFive').removeClass('hide');
-	$('#playerCardFive').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
-	playerTotal+=newCard.value
-}else if (counter == 6){
-	$('#playerCardSix').removeClass('hide');
-	$('#playerCardSix').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
-	playerTotal+=newCard.value
-}else if (counter == 7){
-	$('#playerCardSeven').removeClass('hide');
-	$('#playerCardSeven').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
-	playerTotal+=newCard.value
-}
-$('#playerScore').html('<div>' + playerTotal + '</div>');
-$('#computerScore').html('<div>' + computerTotal + '</div>');
+	} else if (counter == 4){
+		$('#playerCardFour').show();
+		$('#playerCardFour').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		playerTotal+=newCard.value
+	}else if (counter == 5){
+		$('#playerCardFive').show();
+		$('#playerCardFive').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		playerTotal+=newCard.value
+	}else if (counter == 6){
+		$('#playerCardSix').show();
+		$('#playerCardSix').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		playerTotal+=newCard.value
+	}else if (counter == 7){
+		$('#playerCardSeven').show();
+		$('#playerCardSeven').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		playerTotal+=newCard.value
+	};
 
+
+	$('#playerScore').html('<div>' + playerTotal + '</div>');
+	$('#computerScore').html('<div>' + computerTotal + '</div>');
+
+});
+
+$('#reset').on('click',function(){
+	console.log('hello');
+	counter = 2;
+	$('#reset').hide();
+	$('#deal').show();
+	$('#playerCard span').html(' ');
+	$('#playerCardTwo span').html(' ');
+	$('#playerCardThree').hide();
+	$('#playerCardThree span').html(' ');
+	$('#playerCardFour').hide();
+	$('#playerCardFour span').html(' ');
+	$('#playerCardFive').hide();
+	$('#playerCardFive span').html(' ');
+	$('#playerCardSix').hide();
+	$('#playerCardSix span').html(' ');
+	$('#playerCardSeven').hide();
+	$('#playerCardSeven span').html(' ');
+	$('#computerCard span').html(' ');
+	$('#computerCardTwo span').html(' ');
+	$('#computerCardThree').hide();
+	$('#computerCardThree span').html(' ');
+	$('#computerCardFour').hide();
+	$('#computerCardFour span').html(' ');
+	$('#computerCardFive').hide();
+	$('#computerCardFive span').html(' ');
+	$('#computerCardSix').hide();
+	$('#computerCardSix span').html(' ');
+	$('#computerCardSeven').hide();
+	$('#computerCardSeven span').html(' ');
+	$('#playerScore div').html(' ');
+	$('#computerScore div').html(' ');
 });
 
 function checkComputerScore(){
 	if(computerTotal < 17){
 		return true;
-	}
-}
+	};
+};
 
 $('#stand').on('click',function(){
+	$('#stand').hide();
+	$('#reset').show();
 	console.log("inside stand");
+	newCard = getCard();
 	$('#hit').hide();
 	if(checkComputerScore() === true){
-		$('#computerCardThree').removeClass('hide');
+		$('#computerCardThree').show();
 		$('#computerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
 		computerTotal+=newCard.value
+		$('#computerScore').html('<div>' + computerTotal + '</div>');
+		checkComputerScore();
+	}if(checkComputerScore() === true){
+
+		$('#computerCardFour').show();
+		$('#computerCardFour').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		computerTotal+=newCard.value
+		$('#computerScore').html('<div>' + computerTotal + '</div>');
+		checkComputerScore();
+	}if(checkComputerScore() === true){
+
+		$('#computerCardFive').show();
+		$('#computerCardFive').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		computerTotal+=newCard.value
+		$('#computerScore').html('<div>' + computerTotal + '</div>');
+		checkComputerScore();
+	}if(checkComputerScore() === true){
+
+		$('#computerCardSix').show();
+		$('#computerCardSix').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		computerTotal+=newCard.value
+		$('#computerScore').html('<div>' + computerTotal + '</div>');
+		checkComputerScore();
+	}if(checkComputerScore() === true){
+
+		$('#computerCardSeven').show();
+		$('#computerCardSeven').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		computerTotal+=newCard.value
+		$('#computerScore').html('<div>' + computerTotal + '</div>');
 		checkComputerScore();
 	};
-	
+
+
+	function compare(){
+			console.log(playerTotal);
+			console.log(computerTotal);
+			if(playerTotal > 21){
+				console.log('You Lose!');
+			}else if(computerTotal > 21){
+				console.log('Computer Loses!');
+			}else if(playerTotal <= 21 && playerTotal > computerTotal){
+				console.log('Player Wins!');
+				return 'Player';
+			} else if(playerTotal <= 21 && computerTotal > 21){
+				console.log('Player Wins!')
+				return 'Player';
+			} else if (computerTotal <= 21 && computerTotal > playerTotal){
+				console.log('Computer Wins!');
+				return 'Computer';
+			} else if (computerTotal <= 21 && playerTotal > 21){
+				console.log('Compter Wins!');
+				return 'Computer';
+			} else if (playerTotal > 21 && computerTotal > 21){
+				console.log('Nobody Wins!')
+				return 'Nobody';
+			} else if (playerTotal == computerTotal){
+				console.log('tie!');
+				return 'tie';
+			} else {
+				console.log('hello');
+			};
+		};
+
+		var playerCount = 0;
+		var computerCount = 0;
+		var tieCount = 0;
+		var winner = compare();
+		if(winner == 'Player'){
+			playerCount++;
+		} else if (winner == 'Computer'){
+			computerCount++;
+		} else{
+			tieCount++
+		};
+		console.log("player wins: " + playerCount);
+		console.log("computer wins: " +computerCount)
 
 });
+
+
+
 
 
 
