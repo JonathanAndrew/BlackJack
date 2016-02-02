@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+ var playerTotal=0;
+ var computerTotal=0;
 
 	$('#enter').on('click', function(){
 		$('#enter').addClass('hide');
@@ -52,40 +53,81 @@ $(document).ready(function(){
 var newCard = getCard();
 
 $('#deal').on('click',function(){
+	playerTotal=0;
+	computerTotal=0;
+	playerTotal+=newCard.value
 	$('#playerCard').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
 	newCard = getCard();
+	playerTotal+=newCard.value
 	$('#playerCardTwo').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
 	newCard = getCard();
+	computerTotal+=newCard.value
 	$('#computerCard').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
 	newCard = getCard();
+	computerTotal+=newCard.value
 	$('#computerCardTwo').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
+	
+
+	console.log(playerTotal);
+	console.log(computerTotal);
+	$('#playerScore').html('<div>' + playerTotal + '</div>');
+	$('#computerScore').html('<div>' + computerTotal + '</div>');
 });
+
+
 
 var counter = 2;
 $('#hit').on('click',function(e){
 	counter++;
 	newCard = getCard();
+	console.log("playerTotal before hit: " + playerTotal);
 	if (counter == 3){
 	$('#playerCardThree').removeClass('hide');
 	$('#playerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerTotal+=newCard.value
 } else if (counter == 4){
 	$('#playerCardFour').removeClass('hide');
 	$('#playerCardFour').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerTotal+=newCard.value
 }else if (counter == 5){
 	$('#playerCardFive').removeClass('hide');
 	$('#playerCardFive').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerTotal+=newCard.value
 }else if (counter == 6){
 	$('#playerCardSix').removeClass('hide');
 	$('#playerCardSix').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerTotal+=newCard.value
 }else if (counter == 7){
 	$('#playerCardSeven').removeClass('hide');
 	$('#playerCardSeven').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerTotal+=newCard.value
 }
+$('#playerScore').html('<div>' + playerTotal + '</div>');
+$('#computerScore').html('<div>' + computerTotal + '</div>');
+
 });
 
-function addCards(a,b,c,d,e,f,g){
-	
+function checkComputerScore(){
+	if(computerTotal < 17){
+		return true;
+	}
 }
+
+$('#stand').on('click',function(){
+	console.log("inside stand");
+	$('#hit').hide();
+	if(checkComputerScore() === true){
+		$('#computerCardThree').removeClass('hide');
+		$('#computerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+		computerTotal+=newCard.value
+		checkComputerScore();
+	};
+	
+
+});
+
+
+
 
 
     // get player cards
