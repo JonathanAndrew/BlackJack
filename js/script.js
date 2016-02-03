@@ -1,6 +1,18 @@
+/*
+Project Name: BlackJack
+Client: Me
+Author: Jonathan Andrew
+Developer @GA in Seattle
+*/
+
 $(document).ready(function(){
  var playerTotal=0;
  var computerTotal=0;
+ var playerCount = 0;
+var computerCount = 0;
+var tieCount = 0;
+var bets = 0;
+var currentMoney = 0;
 
 	$('#enter').on('click', function(){
 		$('#enter').hide();
@@ -8,7 +20,41 @@ $(document).ready(function(){
 		$('#outsideLuxor').hide();
 		$('#insideLuxor').show();
 		$('#board').show();
+		$('#betMore').removeClass('hide');
+		$('#betLess').removeClass('hide');
+		$('#betCounter').removeClass('hide');
+		$('#wonMoney').removeClass('hide');
+		$('#money').removeClass('hide');
+		$('#moneyTitle').removeClass('hide');
+		$('#bet').removeClass('hide');
 	});
+
+	$('#betMore').on('click',function(){
+		bets++;
+		$('#betCounter').html('<span>' + "$" + bets + '</span>');
+	});
+
+	$('#bet').on('click', function(){
+		currentMoney = parseInt($('#money').text());
+		console.log(bets);
+		console.log(currentMoney);
+		$('#money').html('<span>' + (currentMoney - bets) + '</span>');
+
+	});
+		
+		//set new variable as the current value of the money div
+
+		//going to set currentMoney as current value variable minus one
+
+		//value of the money div to equal currentMoney
+	
+
+	$('#betLess').on('click',function(){
+		bets--;
+		$('#betCounter').html('<span>' + "$" + bets + '</span>');
+	});
+
+console.log(bets);
 
 	
 
@@ -118,6 +164,7 @@ $('#reset').on('click',function(){
 	counter = 2;
 	$('#reset').hide();
 	$('#deal').show();
+	myDeck = getDeck();
 	$('#playerCard span').html(' ');
 	$('#playerCardTwo span').html(' ');
 	$('#playerCardThree').hide();
@@ -152,12 +199,12 @@ function checkComputerScore(){
 	};
 };
 
-$('#stand').on('click',function(){
-	$('#stand').hide();
-	$('#reset').show();
-	console.log("inside stand");
-	newCard = getCard();
-	$('#hit').hide();
+	$('#stand').on('click',function(){
+		$('#stand').hide();
+		$('#reset').show();
+		console.log("inside stand");
+		newCard = getCard();
+		$('#hit').hide();
 	if(checkComputerScore() === true){
 		$('#computerCardThree').show();
 		$('#computerCardThree').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
@@ -194,53 +241,103 @@ $('#stand').on('click',function(){
 		checkComputerScore();
 	};
 
-
 	function compare(){
 			console.log(playerTotal);
 			console.log(computerTotal);
-			if(playerTotal > 21){
-				console.log('You Lose!');
-			}else if(computerTotal > 21){
-				console.log('Computer Loses!');
-			}else if(playerTotal <= 21 && playerTotal > computerTotal){
+			var win = $('#win').hide();
+			var lose = $('#lose').hide();
+			var tie = $('#tie').hide();
+
+			if(playerTotal <= 21 && playerTotal > computerTotal){
 				console.log('Player Wins!');
+				parseInt($("#money").text()) - bets;
+				var wonBet = bets * 2;
+				console.log(wonBet);
+				$('#money').html('<span>' + (currentMoney + wonBet) + '</span>');
+				setTimeout(function(){ win.show(); }, 500);
+				setTimeout(function(){ win.hide(); }, 1500);
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'Player';
+
 			} else if(playerTotal <= 21 && computerTotal > 21){
-				console.log('Player Wins!')
+				console.log('Player Wins!');
+				var wonBet= bets * 2;
+				console.log(wonBet);
+				$('#money').html('<span>' + (currentMoney + wonBet) + '</span>');
+				setTimeout(function(){ win.show(); }, 500);
+				setTimeout(function(){ win.hide(); }, 1500);
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'Player';
-			} else if (computerTotal <= 21 && computerTotal > playerTotal){
+
+			} else if (playerTotal > 21 && computerTotal <= 21){
+				setTimeout(function(){ lose.show(); }, 500);
+				setTimeout(function(){ lose.hide(); }, 1500);
 				console.log('Computer Wins!');
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'Computer';
+
+			} else if (computerTotal <= 21 && computerTotal > playerTotal){
+				setTimeout(function(){ lose.show(); }, 500);
+				setTimeout(function(){ lose.hide(); }, 1500);
+				console.log('Computer Wins!');
+				bets = 0;
+				$('#betCounter').html(bets);
+				return 'Computer';
+
 			} else if (computerTotal <= 21 && playerTotal > 21){
+				setTimeout(function(){ lose.show(); }, 500);
+				setTimeout(function(){ lose.hide(); }, 1500);
 				console.log('Compter Wins!');
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'Computer';
+
 			} else if (playerTotal > 21 && computerTotal > 21){
-				console.log('Nobody Wins!')
+				console.log('Nobody Wins!');
+				setTimeout(function(){ tie.show(); }, 500);
+				setTimeout(function(){ tie.hide(); }, 1500);
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'Nobody';
+
 			} else if (playerTotal == computerTotal){
+				setTimeout(function(){ tie.show(); }, 500);
+				setTimeout(function(){ tie.hide(); }, 1500);
 				console.log('tie!');
+				bets = 0;
+				$('#betCounter').html(bets);
 				return 'tie';
+
 			} else {
 				console.log('hello');
 			};
+			
 		};
 
-		var playerCount = 0;
-		var computerCount = 0;
-		var tieCount = 0;
-		var winner = compare();
-		if(winner == 'Player'){
-			playerCount++;
-		} else if (winner == 'Computer'){
-			computerCount++;
-		} else{
-			tieCount++
-		};
-		console.log("player wins: " + playerCount);
-		console.log("computer wins: " +computerCount)
+		function wins(){
+			
+			var winner = compare();
+			if(winner == 'Player'){
+				playerCount++;
+			} else if (winner == 'Computer'){
+				computerCount++;
+			} else{
+				tieCount++
+			};
+			console.log("player wins: " + playerCount);
+			console.log("computer wins: " +computerCount)
+			$('#playerWins').html(playerCount);
+			$('#computerWins').html(computerCount);
+	};
+		
+	
+		wins();
 
 });
-
+		
 
 
 
