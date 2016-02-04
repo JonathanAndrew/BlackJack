@@ -13,6 +13,8 @@ var computerCount = 0;
 var tieCount = 0;
 var bets = 0;
 var currentMoney = 0;
+var playerHand = [];
+var computerHand = [];
 
 	$('#enter').on('click', function(){
 		$('#enter').hide();
@@ -27,6 +29,7 @@ var currentMoney = 0;
 		$('#money').removeClass('hide');
 		$('#moneyTitle').removeClass('hide');
 		$('#bet').removeClass('hide');
+		$('#flashingBox').addClass('hide');
 	});
 
 	$('#betMore').on('click',function(){
@@ -39,6 +42,7 @@ var currentMoney = 0;
 		console.log(bets);
 		console.log(currentMoney);
 		$('#money').html('<span>' + (currentMoney - bets) + '</span>');
+		$('#bet').attr("disabled", true);
 
 	});
 		
@@ -91,7 +95,7 @@ console.log(bets);
 		var index = (Math.floor(Math.random()*myDeck.length));
 		var card = myDeck[index];
 		myDeck.splice(index, 1);
-		console.log(card);
+		// console.log(card);
 		return card;
 
 	};
@@ -102,19 +106,25 @@ $('#deal').on('click',function(){
 	$('#deal').hide();
 	$('#hit').show();
 	$('#stand').show();
+	$('#cover').show();
+	$('#cover2').show();
+	$('#bets').hide();
 	playerTotal=0;
 	computerTotal=0;
 	playerTotal+=newCard.value
 	$('#playerCard').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
+	playerHand.push($("#playerCard"));
+	console.log(playerCard);
 	newCard = getCard();
 	playerTotal+=newCard.value
 	$('#playerCardTwo').html('<span class="card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="suit1">' + newCard.suit + '</span>' + '<span class="card-value2">'+ newCard.value + '</span>' + '<span class="suit2">' + newCard.suit + '</span>');
 	newCard = getCard();
 	computerTotal+=newCard.value
-	$('#computerCard').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
+	$('#computerCard').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">' + newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
 	newCard = getCard();
 	computerTotal+=newCard.value
 	$('#computerCardTwo').html('<span class="computer-card-value1" data-value="'+ newCard.value +'">'+ newCard.value + '</span>'+ '<span class="computer-suit1">' + newCard.suit + '</span>' + '<span class="computer-card-value2">'+ newCard.value + '</span>' + '<span class="computer-suit2">' + newCard.suit + '</span>');
+	$('#cover2').html('<span class="cover2">'+'</span>');
 	
 
 	console.log(playerTotal);
@@ -164,6 +174,8 @@ $('#reset').on('click',function(){
 	counter = 2;
 	$('#reset').hide();
 	$('#deal').show();
+	$('#bets').show();
+	$('#bet').attr("disabled", false);
 	myDeck = getDeck();
 	$('#playerCard span').html(' ');
 	$('#playerCardTwo span').html(' ');
@@ -202,6 +214,8 @@ function checkComputerScore(){
 	$('#stand').on('click',function(){
 		$('#stand').hide();
 		$('#reset').show();
+		$("#cover").hide();
+		$('#cover2').hide();
 		console.log("inside stand");
 		newCard = getCard();
 		$('#hit').hide();
@@ -254,8 +268,8 @@ function checkComputerScore(){
 				var wonBet = bets * 2;
 				console.log(wonBet);
 				$('#money').html('<span>' + (currentMoney + wonBet) + '</span>');
-				setTimeout(function(){ win.show(); }, 500);
-				setTimeout(function(){ win.hide(); }, 1500);
+				setTimeout(function(){ win.html('<span>'+ 'YOU WIN' + "<br />" + 'You won: $ ' + wonBet +'</span>').show(); }, 500);
+				setTimeout(function(){ win.hide(); }, 2000);
 				bets = 0;
 				$('#betCounter').html(bets);
 				return 'Player';
@@ -265,8 +279,8 @@ function checkComputerScore(){
 				var wonBet= bets * 2;
 				console.log(wonBet);
 				$('#money').html('<span>' + (currentMoney + wonBet) + '</span>');
-				setTimeout(function(){ win.show(); }, 500);
-				setTimeout(function(){ win.hide(); }, 1500);
+				setTimeout(function(){ win.html('<span>'+ 'YOU WIN' + "<br />" + 'You won: $ ' + wonBet + '</span>').show(); }, 500);
+				setTimeout(function(){ win.hide(); }, 2000);
 				bets = 0;
 				$('#betCounter').html(bets);
 				return 'Player';
@@ -339,20 +353,5 @@ function checkComputerScore(){
 });
 		
 
-
-
-
-
-
-
-    // get player cards
-    // $('#playerCard').html('<div>' + cards[num] + '</div>');
-
-
-
-    // allow player to either hit or stand
-    // get computer cards
-    // computer must hit <17
-    // compare
 
 });
